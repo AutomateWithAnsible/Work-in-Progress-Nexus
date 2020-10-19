@@ -1,0 +1,56 @@
+curl -X POST "http://localhost:8081/service/rest/v1/components?repository=yum.test" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "yum.directory=tower" -F "yum.asset=@abrt-java-connector-1.0.6-6.el7.src.rpm" -F "yum.asset.filename=customnameoffile.rpm"
+- name: 
+  uri:
+    url:
+    validate_certs:
+    user:
+    password:
+    force_basic_auth:
+    method:
+    body_format:
+    body:
+    headers:
+      Content_Type:
+    status_code:
+  with_items:
+    - {  }
+    - {  }
+
+- name: 
+  uri:
+    url:
+    validate_certs:
+    user:
+    password:
+    force_basic_auth:
+    method:
+    body_format:
+    body:
+    headers:
+      Content_Type:
+    status_code:
+  with_items:
+    - {  }
+    - {  }
+
+
+- name: 
+  uri:
+    url: "http://localhost:8081/service/rest/v1/components?repository={{ yum.test }}
+    validate_certs: no
+    user: "admin"
+    password: "admin123"
+    force_basic_auth: yes
+    method: POST
+    body_format: multipart/form-data
+    body:
+       yum:
+        directory: tower #folder in repo 
+        asset: @abrt-java-connector-1.0.6-6.el7.src.rpm #full name of rpm
+          filename: # can be anything but must end with .rpm
+    headers:
+      Content_Type: application/json
+    status_code: 204
+  with_items:
+    - {  }
+    - {  }

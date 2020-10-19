@@ -1,0 +1,68 @@
+
+
+###################################################################################################
+# work in progress
+####################################################################################################
+
+# # - name: upload to uri
+# #   uri:
+# #     url: "http://localhost:8081/service/rest/v1/components?repository="yum.uri"
+# #     validate_certs: no
+# #     user: admin
+# #     password: admin123
+# #     force_basic_auth: yes
+#       src: "{{ nexus.dl_dir }}{{ item[1].scr_dir }}
+# #     method: POST
+# #     body_format: 
+# #     body: |
+#       "yum": {
+#       "directory": "ansible-tower",
+#       "asset": "/home/ansibe/ansible-tower-setup-bundle-3.7.2-1/bundle/el7/repos/ansible-tower/ansible-tower-3.7.2-1.el7at.x86_64.rpm",
+#       "asset.filename": "ansible-tower-3.7.2-1.el7at.x86_64.rpm"
+#       }
+#   #     yum:
+#  #       directory: "test" #folder in repo 
+#  #       asset: @httpd-2.4.6-17.el7.src.rpm #full name of rpm
+#  #         filename: httpd-2.4.6-17.el7.src.rpm # can be anything but must end with .rpm
+#     headers:
+#       Content_Type: application/json
+#     status_code: 204
+  
+# # - name: 
+# #   uri:
+# #     url:
+# #     validate_certs:
+# #     user:
+# #     password:
+# #     force_basic_auth:
+# #     method:
+# #     body_format:
+# #     body:
+# #     headers:
+# #       Content_Type:
+# #     status_code:
+# #   with_items:
+# #     - {  }
+# #     - {  }    
+
+
+# # curl -v -k --user 'admin:admin123' --upload-file '/tmp/anaconda-19.31.79-1.el7.src.rpm' 'http://localhost:8081/service/rest/v1/repository/yum.uri/anaconda-19.31.79-1.el7.src.rpm'
+
+
+# # http://localhost:8081/service/rest/v1/components?repository=yum.uri
+
+# # curl -v -k -X POST --user 'admin:admin123' --upload-file '/tmp/anaconda-19.31.79-1.el7.src.rpm' 'http://localhost:8081/service/rest/v1/components?repository=yum.uri/anaconda-19.31.79-1.el7.src.rpm'
+
+# #curl -X POST "http://localhost:8081/service/rest/v1/components?repository=yum.test" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "yum.directory=tower" -F "yum.asset=@abrt-java-connector-1.0.6-6.el7.src.rpm" -F "yum.asset.filename=customnameoffile.rpm"
+
+# - name: debug
+#   debug:
+#     msg: "{{ item[1]-rpm_list.stdout.lines }}"  
+#   register: "{{ item[1] }}-rpms"
+
+# - name : cat
+#   debug:
+#     msg: "{{ item[1]-rpms }}"
+
+# - "{ \"name\": \"{{ item[1].repo }}\", \"online\": true, \"storage\": { \"blobStoreName\": \"default\", \"strictContentTypeValidation\": true, \"writePolicy\": \"allow_once\" }, \"cleanup\": { \"policyNames\": [ \"string\" ] }, \"yum\": { \"repodataDepth\": 0, \"deployPolicy\": \"STRICT\" }}"
+

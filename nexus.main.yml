@@ -1,0 +1,54 @@
+---
+####################################################################################################
+#work in progress for making list for rpms
+####################################################################################################
+
+# - name: find rpm names
+#   command: find {{ nexus.dl_dir }} -type f -name "*.rpm" -printf '%f\n' > /{{ nexus.dl_dir }}{{ item[1].repo }}_basename.txt 
+#   with_subelements: 
+#     - "{{ nexus }}"
+#     - yum
+  
+
+# - name: find rpm paths
+#   command: find {{ nexus.dl_dir }} -type f -name "*.rpm" > {{ nexus.dl_dir }}{{ item[1].repo }}_path.txt 
+#   with_subelements: 
+#     - "{{ nexus }}"
+#     - yum
+
+####################################################################################################
+##############################          make a repo on nexus         ############################## 
+####################################################################################################
+
+- name: create yum repo
+  uri:
+    url: "{[ nexus.url ]}""
+    validate_certs: no
+    user: admin
+    password: admin123
+    force_basic_auth: yes
+    method: POST
+    body_format: json
+    body: "{ \"name\": \"ansible_playbook\", \"online\": true, \"storage\": { \"blobStoreName\": \"default\", \"strictContentTypeValidation\": true, \"writePolicy\": \"allow_once\" }, \"cleanup\": { \"policyNames\": [ \"string\" ] }, \"yum\": { \"repodataDepth\": 0, \"deployPolicy\": \"STRICT\" }}"
+    headers:
+      Content_Type: application/json
+    status_code: 201
+
+####################################################################################################
+##############################          upload file to nexus         ############################## 
+####################################################################################################
+
+- name: Working curl to upload to yum repo
+  shell: 'curl -u admin:admin123 -X POST http://localhost:8081/service/rest/v1/components?repository=ansible_playbook" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "yum.directory=ansible" -F "yum.asset=@/tmp/rpms/anaconda-19.31.79-1.el7.src.rpm" -F "yum.asset.filename=anaconda-19.31.79-1.el7.src.rpm"'
+  
+
+####################################################################################################
+##############################          code snippets        ############################## 
+####################################################################################################
+
+
+## find /tmp/rpms -type f -name "*.rpm" -printf '%f\n'
+
+# curl -X POST "http://localhost:8081/service/rest/v1/components?repository=yum.test" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "yum.directory=yumd" -F "yum.asset=@/tmp/apache-commons-daemon-1.0.13-6.el7.src.rpm" -F "yum.asset.filename=apache-commons-daemon-1.0.13-6.el7.src.rpm"
+
+# curl -u admin:admin123 -X POST "http://localhost:8081/service/rest/v1/components?repository=yum.uri" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "yum.directory=uri.curl" -F "yum.asset=@/tmp/apache-commons-daemon-1.0.13-6.el7.src.rpm" -F "yum.asset.filename=apache-commons-daemon-1.0.13-6.el7.src.rpm"

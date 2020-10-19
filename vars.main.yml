@@ -1,0 +1,31 @@
+# ---
+# nexus:
+#    url: "http://localhost:8081/service/rest/v1/repositories/yum/hosted"
+#    response: application/json #response_type_allowed
+#    dl_dir: "/tmp/rpms/"
+#    repo_upload-url: "http://localhost:8081/service/rest/v1/components?repository="
+#    yum:
+#      url: http://localhost:8081/service/rest/v1/components?repository=  
+#      src_dir: ansible/
+#      repo: ansible #repo_name
+#      repo_dir: ansible_playbook #folder_to_upload_to
+#      con_type: multipart/form-data #body_type
+#      packages: #path to packages
+#      response: application/json
+       
+# nexus:
+
+#    url: "http://localhost:8081/service/rest/v1/repositories/yum/hosted"
+#    response: application/json #response_type_allowed
+#    dl_dir: "/tmp/rpms/"
+
+#      -F "yum.asset=@/tmp/apache-commons-daemon-1.0.13-6.el7.src.rpm" -F "yum.asset.filename=apache-commons-daemon-1.0.13-6.el7.src.rpm"
+
+#    shell: "{{ nexus.repo_upload_url }}'{{ item[1].repo }}"' '{{ item[1].upload_spec }}{{ item[1].repo_dir }}"' 
+
+#    curl_url: 'curl -u admin:admin123 -X POST "http://localhost:8081/service/rest/v1/components?repository="'
+#    yum_repo: item[1].repo"'
+#    upload_spec: '-H "accept: application/json" -H "Content-Type: multipart/form-data" -F "yum.directory='
+
+
+#    curl -X POST "http://localhost:8081/service/rest/v1/components?repository={{ item[1].repo }}" -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "yum.directory={{ item[1].repo_dir }}" -F "yum.asset=@/tmp/apache-commons-daemon-1.0.13-6.el7.src.rpm" -F "yum.asset.filename=apache-commons-daemon-1.0.13-6.el7.src.rpm"       
