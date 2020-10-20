@@ -1,0 +1,6 @@
+---
+nexus:
+   url: 'http://localhost:8081'
+   yum_repo:               #name you want the repo to have
+   yum_rpm_path: "/tmp/rpms"   #path t where you are storing the files that you are wanting to upload
+   yum_url: 'http://localhost:8081/service/rest/v1/repositories/yum/hosted' 
