@@ -1,0 +1,40 @@
+---
+####################################################################################################
+##############################          make a repo on nexus         ##############################
+####################################################################################################
+
+- name: create yum repo
+  uri:
+    url: "{{ nexus.yum_url }}"
+    validate_certs: no
+    user: admin
+    password: admin123
+    force_basic_auth: yes
+    method: POST
+    body_format: json
+    body: "{ \"name\": \"{{ nexus.yum_repo }}\", \"online\": true, \"storage\": { \"blobStoreName\": \"default\", \"strictContentTypeValidation\": true, \"writePolicy\": \"allow_once\" }, \"cleanup\": { \"policyNames\": [ \"string\" ] }, \"yum\": { \"repodataDepth\": 0, \"deployPolicy\": \"STRICT\" }}"
+    headers:
+      Content_Type: application/json
+    status_code: 201
+
+
+####################################################################################################
+####################     find specific file type and turn into variable list         ###############
+####################################################################################################
+
+- name: find specific file type and turn into variable list
+  find:
+    paths: "{{ nexus.yum_rpm_path }}"
+    patterns: "*.rpm"
+  register: rpm_files
+
+####################################################################################################
+##############################          upload file to nexus         ##############################
+####################################################################################################
+
+- name: Working curl to upload to yum repo
+  command: 'curl -v -k --user admin:admin123 --upload-file {{ item.path }} {{ nexus.url }}/repository/{{ nexus.yum_repo }}/{{ item.path | basename }}'
+  with_items:
+    - "{{ rpm_files.files }}"
+
+...
