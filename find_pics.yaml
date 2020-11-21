@@ -1,0 +1,16 @@
+---
+
+- hosts: localhost
+  become: yes
+  tasks:
+    - find: 
+        paths: "/mnt/g"
+        recurse: yes
+        patterns: "*.mp4"
+      register: files_to_copy
+    - copy: 
+        src: "{{ item.path }}" 
+        dest: "/mnt/i/Pictures"
+        mode: 0775
+      with_items: 
+        - "{{ files_to_copy.files }}"
